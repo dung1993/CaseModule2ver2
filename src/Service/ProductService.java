@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductService implements IProductService{
     public final static String Path = "D:\\CaseModule2ver2\\data\\Products.csv";
-    private  static  ProductService instanceProduct;
+    private static ProductService instanceProduct;
 
     public ProductService(){}
 
