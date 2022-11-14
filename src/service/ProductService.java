@@ -102,7 +102,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void updateAmount(Long idProduct, Integer quantity) {
+    public void updateQuantity(Long idProduct, Integer quantity) {
         List<Product> products = findAllProducts();
         for (Product oldProduct : products) {
             if (oldProduct.getIdProduct().equals(idProduct)) {

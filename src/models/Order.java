@@ -6,19 +6,11 @@ public class Order {
     private Long idOrder;
     private String fullName;
     private String phoneNumber;
-    private Double grandTotal;
     private Instant orderTime;
 
     public Order() {
     }
 
-    public Order(Long idOrder, String fullName, String phoneNumber, Double grandTotal, Instant orderTime) {
-        this.idOrder = idOrder;
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.grandTotal = grandTotal;
-        this.orderTime = orderTime;
-    }
 
     public Order(Long idOrder, String fullName, String phoneNumber, Instant orderTime) {
         this.idOrder = idOrder;
@@ -51,13 +43,6 @@ public class Order {
         this.phoneNumber = phoneNumber;
     }
 
-    public Double getGrandTotal() {
-        return grandTotal;
-    }
-
-    public void setGrandTotal(Double grandTotal) {
-        this.grandTotal = grandTotal;
-    }
 
     public Instant getOrderTime() {
         return orderTime;
@@ -68,7 +53,7 @@ public class Order {
     }
 
     public String toString(){
-        return String.format("%s,%s,%s,%s,%s",idOrder,fullName,phoneNumber,grandTotal,orderTime);
+        return String.format("%s,%s,%s,%s",idOrder,fullName,phoneNumber,orderTime);
     }
 
     public static  Order parseOrder(String myOrder){
@@ -77,8 +62,7 @@ public class Order {
         order.setIdOrder(Long.parseLong(array[0]));
         order.setFullName(array[1]);
         order.setPhoneNumber(array[2]);
-        order.setGrandTotal(Double.parseDouble(array[3]));
-        order.setOrderTime(Instant.parse(array[4]));
+        order.setOrderTime(Instant.parse(array[3]));
         return order;
     }
 }

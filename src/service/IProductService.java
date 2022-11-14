@@ -19,6 +19,6 @@ public interface IProductService {
 
     Product checkId(Long idProduct);
 
-    void updateAmount(Long idProduct, Integer quantity);
+    void updateQuantity(Long idProduct, Integer quantity);
 
 }

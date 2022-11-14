@@ -105,27 +105,27 @@ public class OrderView {
 
 
     public static List<ItemOrder> addItemOrder(Long id) {
-        List<ItemOrder> listOrders = new ArrayList<>();
+        List<ItemOrder> itemOrders = new ArrayList<>();
         productView.showProductList();
-        System.out.println(" Input amount of product you need buy:");
+        System.out.println(" Input quantity of product you need buy:");
         System.out.print("==>  ");
         int choice = Integer.parseInt(scanner.nextLine());
         while (choice < 0) {
-            System.out.println("Amount is Wrong! Please input again(not less than 0)");
+            System.out.println("Quantity is Wrong! Please input again(not less than 0)");
             System.out.print("==>  ");
             choice = Integer.parseInt(scanner.nextLine());
         }
         int count = 0;
         do {
             try {
-                listOrders.add(addItemOrders(id));
+                itemOrders.add(addItemOrders(id));
                 count++;
 
             } catch (Exception e) {
                 System.out.println("Incorrect, please try again!");
             }
         } while (count < choice);
-        return listOrders;
+        return itemOrders;
     }
 
     public static ItemOrder addItemOrders(Long idOrder) {
@@ -166,6 +166,7 @@ public class OrderView {
                 Double total = quantity * price;
                 Double grandTotal = 0.0;
                 ItemOrder itemOrder = new ItemOrder(idItemOrder, idOrder, idProduct, nameProduct, price, quantity, total, grandTotal, orderTime);
+                productService.updateQuantity(idProduct,quantity);
                 return itemOrder;
             } catch (Exception e) {
                 System.out.println("Incorrect, please try again!");
@@ -186,9 +187,9 @@ public class OrderView {
             System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
             System.out.println("⥘⥘                                    ⤿Bill⤾                                     ⥘⥘");
             System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
-            System.out.printf("⥘⥘%-20s \t%-30s %20s ⥘⥘\n", "Name          | ", order.getFullName(), "");
+            System.out.printf("⥘⥘%-20s \t%-30s %20s ⥘⥘\n", "Name               | ", order.getFullName(), "");
             System.out.printf("⥘⥘%-20s \t%-30s %20s ⥘⥘\n", "PhoneNumber        | ", order.getPhoneNumber(), "");
-            System.out.printf("⥘⥘%-20s \t%-30s %20s ⥘⥘\n", "CreateTime    | ", InstantUtils.instantToString(order.getOrderTime()), "");
+            System.out.printf("⥘⥘%-20s \t%-30s %20s ⥘⥘\n", "CreateTime         | ", InstantUtils.instantToString(order.getOrderTime()), "");
             System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
             System.out.printf("⥘⥘%-4s │\t%-25s │\t%-15s │\t%-15s ⥘⥘\n", "Id", "Product Name", "Price", "Quantity");
             System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
@@ -197,6 +198,7 @@ public class OrderView {
             int count = 0;
             for (ItemOrder itemOrder : itemOrders) {
                 if (itemOrder.getIdOrder().equals(order.getIdOrder())) {
+
                     sum += itemOrder.getTotal();
                     count++;
                     itemOrder.setGrandTotal(sum);
@@ -210,12 +212,14 @@ public class OrderView {
                 }
             }
             System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
-            System.out.printf("⥘⥘                                        Total : %17s     ⥘⥘\n", InstantUtils.doubleToVND(sum));
+            System.out.printf("⥘⥘                                        Total : %17s          ⥘⥘\n", InstantUtils.doubleToVND(sum));
             System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
         } catch (Exception e) {
             System.out.println("Incorrect, please try again!");
         }
     }
+
+
 
     public static void showListItemOrder() {
         try {
@@ -239,7 +243,8 @@ public class OrderView {
                     if (itemOrder.getIdOrder().equals(order.getIdOrder())) {
                         count++;
                         total = itemOrder.getPrice() * itemOrder.getQuantity();
-                        System.out.printf("\t⥘⥘\t%-2s │%-10s %-25s %-10s %-20s⥘⥘\n", count,
+                        System.out.printf("\t⥘⥘\t%-2s │%-10s %-25s %-10s %-20s⥘⥘\n",
+                                count,
                                 itemOrder.getIdOrder(),
                                 InstantUtils.doubleToVND(itemOrder.getPrice()),
                                 InstantUtils.quantityProduct(itemOrder.getQuantity()),
@@ -253,9 +258,9 @@ public class OrderView {
                 grandTotal = 0;
                 count = 0;
             }
-            System.out.println("\t\t\t\t\t\t\t⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
-            System.out.printf("\t\t\t\t\t\t\t⥘⥘             printTotal: %20s         ⥘⥘\n", InstantUtils.doubleToVND(printTotal));
-            System.out.println("\t\t\t\t\t\t\t⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘\n");
+            System.out.println("\t⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
+            System.out.printf("\t⥘⥘             printTotal: %20s         ⥘⥘\n", InstantUtils.doubleToVND(printTotal));
+            System.out.println("\t⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘\n");
             int choice;
             do {
                 System.out.println(" Press 0 to return to product manager");

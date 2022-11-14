@@ -135,7 +135,7 @@ public class Menu {
                         SortView.menuSort();
                         break;
                     case "0":
-//                        menuAdmin();
+                        menuAdmin();
                         break;
                     default:
                         System.out.println("Is wrong choice! Please choice again:");
