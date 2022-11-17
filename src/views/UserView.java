@@ -4,7 +4,7 @@ import src.menu.Menu;
 import src.models.User;
 import src.service.UserService;
 import src.utils.AppUtils;
-import src.utils.DateUtils;
+import src.utils.ValidateUtils;
 
 import java.time.Instant;
 import java.util.List;
@@ -209,7 +209,7 @@ public class UserView {
         boolean flagInputName = true;
         do {
             phoneNumber = scanner.nextLine().trim();
-            if (!DateUtils.isPhoneInvalid(phoneNumber)) {
+            if (!ValidateUtils.isPhoneInvalid(phoneNumber)) {
                 System.out.println("Phone Number" + phoneNumber + "Incorrect format please try again");
                 System.out.println(" Enter your mobile phone( 10 to 11 number and start at number 0)");
                 System.out.print("==>  ");
@@ -312,7 +312,8 @@ public class UserView {
         System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚List⟚User⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
         System.out.printf("⥘⥘%-15s %-15s %-25s %-25s %-15s %-15s ⥘⥘\n", "ID", "Username", "Password", "Phone Number", "Role","CreateUserTime");
         System.out.println("⥘⥘⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⟚⥘⥘");
-        for (User user : userService.findAllUsers()) {
+        List<User> list = userService.findAllUsers();
+        for (User user : list) {
             System.out.printf("⥘⥘%-15s %-15s %-25s %-25s %-15s %-15s⥘⥘\n",
                     user.getIdUser(),
                     user.getUsername(),

@@ -8,7 +8,7 @@ import src.service.ItemOrderService;
 import src.service.OrderService;
 import src.service.ProductService;
 import src.utils.AppUtils;
-import src.utils.DateUtils;
+import src.utils.ValidateUtils;
 import src.utils.InstantUtils;
 
 import java.time.Instant;
@@ -39,14 +39,14 @@ public class OrderView {
             System.out.println("Enter the name of the person ordering: (EX: Petter)");
             System.out.print("==>  ");
             String fullName;
-            while (!DateUtils.isNameInvalid(fullName = scanner.nextLine())) {
+            while (!ValidateUtils.isNameInvalid(fullName = scanner.nextLine())) {
                 System.out.println("Name" + fullName + " Incorrect format please try again " + " (Names must be capitalized and not accented)");
                 System.out.print("==>  ");
             }
             System.out.println("Enter your mobile phone: ");
             System.out.print("==>  ");
             String phoneNumber = scanner.nextLine();
-            while (!DateUtils.isPhoneInvalid(phoneNumber) || phoneNumber.trim().isEmpty()) {
+            while (!ValidateUtils.isPhoneInvalid(phoneNumber) || phoneNumber.trim().isEmpty()) {
                 System.out.println("Mobile" + phoneNumber + " Incorrect format please try again");
                 System.out.println(" Enter your mobile phone( 10 to 11 number and start at number 0)");
                 System.out.print("==>  ");
@@ -302,14 +302,14 @@ public class OrderView {
             System.out.println("Enter the name of the person ordering: (EX: Petter)");
             System.out.print("==>  ");
             String fullName;
-            while (!DateUtils.isNameInvalid(fullName = scanner.nextLine())) {
+            while (!ValidateUtils.isNameInvalid(fullName = scanner.nextLine())) {
                 System.out.println("Name" + fullName + " Incorrect format please try again " + " (Names must be capitalized and not accented)");
                 System.out.print("==>  ");
             }
             System.out.println("Enter your mobile phone: ");
             System.out.print("==>  ");
             String mobile = scanner.nextLine();
-            while (!DateUtils.isPhoneInvalid(mobile) || mobile.trim().isEmpty()) {
+            while (!ValidateUtils.isPhoneInvalid(mobile) || mobile.trim().isEmpty()) {
                 System.out.println("Mobile" + mobile + " Incorrect format please try again");
                 System.out.println(" Enter your mobile phone( 10 to 11 number and start at number 0)");
                 System.out.print("==>  ");

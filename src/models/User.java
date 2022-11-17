@@ -80,6 +80,7 @@ public class User {
         user.setIdUser(Long.parseLong(array[0]));
         user.setUsername(array[1]);
         user.setPassword(array[2]);
+        user.setPhoneNumber(array[3]);
         user.setRole(array[4]);
         user.setCreateUserTime(Instant.parse(array[5]));
         return user;

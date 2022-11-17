@@ -2,7 +2,7 @@ package src.utils;
 
 import java.util.regex.Pattern;
 
-public class DateUtils {
+public class ValidateUtils {
     public static final String NAME_REGEX = "^([A-Z]+[a-z]*[ ]?)+$";
     public static final String USERNAME_REGEX = "^[A-Za-z0-9]{8,16}$";
     public static final String PASSWORD_REGEX = "^[A-Za-z)-9]{8,12}$";
